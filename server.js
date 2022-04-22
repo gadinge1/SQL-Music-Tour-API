@@ -15,19 +15,19 @@ const port = "5432";
 const pass = "i love kai";
 
 // SEQUELIZE CONNECTION
-const sequelize = new Sequelize(database,user,pass, {
-    host,
-    port,
-    dialect: "postgres",
-    logging: false
-});
+// const sequelize = new Sequelize(database,user,pass, {
+//     host,
+//     port,
+//     dialect: "postgres",
+//     logging: false
+// });
 
-try {
-    sequelize.authenticate() 
-    console.log(`Connected with Sequelize at ${process.env.PG_URI}`) 
-} catch(err) {
-    console.log(`Unable to connect to PG: ${err}`) 
-}
+// try {
+//     sequelize.authenticate() 
+//     console.log(`Connected with Sequelize at ${process.env.PG_URI}`) 
+// } catch(err) {
+//     console.log(`Unable to connect to PG: ${err}`) 
+// }
 
 // ROOT
 app.get('/', (req, res) => {
@@ -35,6 +35,16 @@ app.get('/', (req, res) => {
         message: 'Welcome to the Tour API'
     })
 })
+
+// CONTROLLERS  
+const bandsController = require('./controllers/bands_controller')
+app.use('/bands', bandsController)
+
+const eventsController = require('./controllers/events_controller')
+app.use('/events', eventsController)
+
+const stagesController = require('./controllers/stages_controller')
+app.use('/stages', stagesController)
 
 // LISTEN
 app.listen(process.env.PORT, () => {
